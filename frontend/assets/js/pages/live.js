@@ -35,10 +35,10 @@ let hasAnnouncedWinner = false;
  */
 function updateUI(data) {
   // 1. Update KPI stats
-  statTotalVotes.textContent = data.total_votes.toLocaleString('id-ID');
-  statTotalCandidates.textContent = data.candidates.length;
+  statTotalVotes.textContent = (data.total_votes || 0).toLocaleString('id-ID');
+  statTotalCandidates.textContent = (data.candidates || []).length;
 
-  const leader = data.candidates.find(c => c.is_leader);
+  const leader = (data.candidates || []).find(c => c.is_leader);
   if (leader && data.total_votes > 0) {
     statLeaderPaslon.textContent = `#0${leader.number} (${leader.percentage}%)`;
   } else {
@@ -47,20 +47,20 @@ function updateUI(data) {
 
   if (data.status === 'finished') {
     statStatusText.textContent = 'Pemilihan Ditutup';
-    statStatusText.className = 'text-base sm:text-lg font-extrabold text-gold-400';
+    statStatusText.className = 'text-base sm:text-lg font-black text-[#ca8a04]';
   } else {
     statStatusText.textContent = 'Sedang Berjalan';
-    statStatusText.className = 'text-base sm:text-lg font-extrabold text-emerald-400';
+    statStatusText.className = 'text-base sm:text-lg font-black text-[#658d35]';
   }
 
   lastUpdatedText.textContent = new Date().toLocaleTimeString('id-ID') + ' WIB';
 
   // 2. Render Cards
-  renderCards(data.candidates, data.total_votes);
+  renderCards(data.candidates || [], data.total_votes || 0);
 
   // 3. Update Bar Chart
   if (liveBarCanvas) {
-    barChartInstance = renderBarChart(liveBarCanvas.getContext('2d'), data.candidates, barChartInstance);
+    barChartInstance = renderBarChart(liveBarCanvas.getContext('2d'), data.candidates || [], barChartInstance);
   }
 
   // 4. Handle Winner Overlay
@@ -74,61 +74,65 @@ function renderCards(candidates, totalVotes) {
   liveCardsContainer.innerHTML = '';
 
   candidates.forEach(c => {
-    const color = getCandidateColor(c.number);
     const isLeader = c.is_leader && totalVotes > 0;
 
     const card = document.createElement('div');
-    card.className = `card overflow-hidden flex flex-col justify-between transition-all duration-300 ${isLeader ? 'border-gold-500/70 shadow-glow' : 'border-brand-500/20'
-      }`;
+    card.className = `bg-white border ${
+      isLeader ? 'border-[#8dbb50] ring-2 ring-[#8dbb50]/60 shadow-[0_12px_30px_rgba(115,157,62,0.18)]' : 'border-[#e4eadc] shadow-[0_8px_24px_rgba(36,55,26,0.06)]'
+    } rounded-3xl overflow-hidden flex flex-col justify-between transition-all duration-300 hover:shadow-xl`;
 
     card.innerHTML = `
-      <div class="relative w-full h-44 sm:h-52 bg-brand-950/60 overflow-hidden">
+      <div class="relative w-full h-48 sm:h-56 bg-[#f3f6ee] overflow-hidden">
         <img
           src="${c.photo || '/assets/img/paslon1.jpg'}"
           alt="Paslon 0${c.number}"
           class="w-full h-full object-cover object-top"
           onerror="this.src='/assets/img/paslon1.jpg'"
         />
-        <div class="absolute inset-0 bg-gradient-to-t from-brand-950 via-transparent to-transparent"></div>
+        <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/15 to-transparent"></div>
 
-        <!-- Leader Crown -->
-        ${isLeader
-        ? `<div class="absolute top-3 right-3 px-2.5 py-1 rounded-full bg-gold-500 text-brand-950 font-black text-xs shadow-lg flex items-center gap-1 animate-pulse">
+        <!-- Leader Badge -->
+        ${
+          isLeader
+            ? `<div class="absolute top-3 right-3 px-3 py-1 rounded-full bg-[#fef9c3] border border-[#fde047] text-[#854d0e] font-black text-xs shadow-md flex items-center gap-1 animate-pulse">
                 <span>👑</span> UNGGUL
               </div>`
-        : ''
-      }
+            : ''
+        }
 
         <!-- Number Tag -->
-        <div class="absolute top-3 left-3 text-3xl font-black" style="color: ${color.primary}">
+        <div class="absolute top-3 left-3 px-3 py-1 rounded-2xl bg-white/95 backdrop-blur border border-[#e4eadc] text-xl font-black text-[#789f43] shadow-sm">
           0${c.number}
         </div>
 
-        <div class="absolute bottom-2 left-3 right-3">
-          <div class="text-sm font-black text-white truncate leading-tight">
-            ${c.chairman_name}
-          </div>
-          <div class="text-xs text-gray-300 truncate">
-            & ${c.vice_name}
+        <!-- Candidate Names -->
+        <div class="absolute bottom-3 left-3 right-3">
+          <div class="px-3 py-1.5 rounded-xl bg-white/90 backdrop-blur border border-[#e0e9d5] shadow-sm">
+            <div class="text-xs font-black text-[#25351f] truncate">
+              #0${c.number} ${c.chairman_name}
+            </div>
+            <div class="text-[11px] font-bold text-[#658d35] truncate">
+              & ${c.vice_name}
+            </div>
           </div>
         </div>
       </div>
 
-      <div class="p-4 space-y-3 bg-brand-950/70">
+      <div class="p-4 space-y-3 bg-white">
         <div class="flex items-center justify-between">
-          <span class="text-xs font-semibold text-gray-400">Total Suara:</span>
-          <span class="text-lg font-black text-white">${c.votes_count}</span>
+          <span class="text-xs font-bold text-[#788174]">Total Suara</span>
+          <span class="text-xl font-black text-[#25351f]">${c.votes_count.toLocaleString('id-ID')}</span>
         </div>
 
         <div>
-          <div class="flex items-center justify-between text-xs mb-1">
-            <span class="font-bold text-gray-300">Persentase</span>
-            <span class="font-black text-sm" style="color: ${color.primary}">${c.percentage}%</span>
+          <div class="flex items-center justify-between text-xs mb-1.5 font-bold">
+            <span class="text-[#788174]">Persentase</span>
+            <span class="text-sm font-black text-[#789f43]">${c.percentage}%</span>
           </div>
-          <div class="w-full h-2.5 bg-brand-950 rounded-full overflow-hidden border border-brand-800">
+          <div class="w-full h-3 bg-[#f0f4ec] rounded-full overflow-hidden border border-[#e4eadc]">
             <div
-              class="h-full rounded-full transition-all duration-500"
-              style="width: ${c.percentage}%; background-color: ${color.primary};"
+              class="h-full rounded-full transition-all duration-500 bg-gradient-to-r from-[#8dbb50] to-[#a9ce70]"
+              style="width: ${c.percentage}%;"
             ></div>
           </div>
         </div>
@@ -146,18 +150,18 @@ function showWinnerOverlay(winner) {
   if (winner.is_tie) {
     const list = winner.candidates.map(c => `#0${c.number} ${c.chairman_name} & ${c.vice_name}`).join('<br>');
     winnerDetails.innerHTML = `
-      <div class="text-lg font-bold text-white">HASIL IMBANG / SERI</div>
-      <div class="text-sm text-gold-400 leading-relaxed">${list}</div>
-      <div class="text-xs text-gray-300">Perolehan suara: ${winner.candidates[0].votes_count} Suara</div>
+      <div class="text-lg font-black text-[#25351f]">HASIL IMBANG / SERI</div>
+      <div class="text-sm font-extrabold text-[#789f43] leading-relaxed">${list}</div>
+      <div class="text-xs font-semibold text-[#788174]">Perolehan suara: ${winner.candidates[0].votes_count} Suara</div>
     `;
   } else {
     winnerDetails.innerHTML = `
-      <div class="text-xs font-bold uppercase tracking-wider text-gold-400">PASANGAN CALON TERPILIH</div>
-      <div class="text-3xl font-black text-white">NOMOR URUT 0${winner.number}</div>
-      <div class="text-xl font-extrabold text-gold-400">${winner.chairman_name} & ${winner.vice_name}</div>
-      <div class="text-sm text-emerald-400 font-semibold">${winner.chairman_class} & ${winner.vice_class}</div>
-      <div class="pt-2 border-t border-brand-800/80 text-sm font-bold text-white">
-        Perolehan: <span class="text-gold-400">${winner.votes_count} Suara</span> (${winner.percentage}%)
+      <div class="text-xs font-extrabold uppercase tracking-wider text-[#658d35]">PASANGAN CALON TERPILIH</div>
+      <div class="text-3xl font-black text-[#789f43]">NOMOR URUT 0${winner.number}</div>
+      <div class="text-xl font-black text-[#25351f]">${winner.chairman_name} & ${winner.vice_name}</div>
+      <div class="text-sm text-[#788174] font-semibold">${winner.chairman_class} & ${winner.vice_class}</div>
+      <div class="pt-2 border-t border-[#e5ecdc] text-sm font-bold text-[#25351f]">
+        Perolehan: <span class="text-[#789f43] font-black">${winner.votes_count} Suara</span> (${winner.percentage}%)
       </div>
     `;
   }
@@ -199,11 +203,11 @@ const poller = createPoller({
   },
   onStatus: (isConnected) => {
     if (isConnected) {
-      liveIndicator.className = 'stat-pill border-emerald-500/40 bg-emerald-950/40 text-emerald-400 text-xs font-bold';
+      liveIndicator.className = 'px-3.5 py-2 rounded-xl text-xs font-black text-[#2e6822] bg-[#eaf7e3] border border-[#cbe8be] flex items-center gap-2 shadow-sm';
       liveIndicatorText.textContent = 'LIVE';
     } else {
-      liveIndicator.className = 'stat-pill border-red-500/40 bg-red-950/40 text-red-400 text-xs font-bold';
-      liveIndicatorText.textContent = 'Terputus, mencoba lagi...';
+      liveIndicator.className = 'px-3.5 py-2 rounded-xl text-xs font-black text-red-700 bg-red-50 border border-red-200 flex items-center gap-2 shadow-sm';
+      liveIndicatorText.textContent = 'Terputus...';
     }
   },
 });

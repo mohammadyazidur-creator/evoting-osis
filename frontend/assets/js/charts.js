@@ -35,9 +35,9 @@ export function renderBarChart(ctx, candidates, existingChart = null) {
           backgroundColor: backgroundColors,
           borderColor: borderColors,
           borderWidth: 1.5,
-          borderRadius: 10,
+          borderRadius: 12,
           borderSkipped: false,
-          maxBarThickness: 60,
+          maxBarThickness: 64,
         },
       ],
     },
@@ -47,12 +47,13 @@ export function renderBarChart(ctx, candidates, existingChart = null) {
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: 'rgba(4, 19, 14, 0.95)',
-          titleColor: '#fbbf24',
-          bodyColor: '#ffffff',
-          borderColor: 'rgba(34, 197, 94, 0.3)',
+          backgroundColor: '#25351f',
+          titleColor: '#ffffff',
+          bodyColor: '#eaf2df',
+          borderColor: '#8dbb50',
           borderWidth: 1,
           padding: 12,
+          cornerRadius: 12,
           displayColors: true,
           callbacks: {
             label(context) {
@@ -66,17 +67,17 @@ export function renderBarChart(ctx, candidates, existingChart = null) {
         x: {
           grid: { display: false },
           ticks: {
-            color: '#9ca3af',
+            color: '#64748b',
             font: { family: 'Plus Jakarta Sans', weight: 'bold', size: 12 },
           },
         },
         y: {
           beginAtZero: true,
-          grid: { color: 'rgba(255, 255, 255, 0.05)' },
+          grid: { color: '#eef2ea' },
           ticks: {
             precision: 0,
-            color: '#9ca3af',
-            font: { family: 'Plus Jakarta Sans', size: 11 },
+            color: '#788174',
+            font: { family: 'Plus Jakarta Sans', size: 11, weight: '600' },
           },
         },
       },
@@ -98,7 +99,7 @@ export function renderDonutChart(ctx, candidates, existingChart = null) {
   // If all votes are 0, show a faint placeholder slice
   const total = data.reduce((a, b) => a + b, 0);
   const chartData = total === 0 ? [1] : data;
-  const chartColors = total === 0 ? ['rgba(255, 255, 255, 0.1)'] : backgroundColors;
+  const chartColors = total === 0 ? ['#eef2ea'] : backgroundColors;
 
   if (existingChart) {
     existingChart.data.labels = total === 0 ? ['Belum ada suara'] : labels;
@@ -130,12 +131,13 @@ export function renderDonutChart(ctx, candidates, existingChart = null) {
       plugins: {
         legend: { display: false },
         tooltip: {
-          backgroundColor: 'rgba(4, 19, 14, 0.95)',
-          titleColor: '#fbbf24',
-          bodyColor: '#ffffff',
-          borderColor: 'rgba(34, 197, 94, 0.3)',
+          backgroundColor: '#25351f',
+          titleColor: '#ffffff',
+          bodyColor: '#eaf2df',
+          borderColor: '#8dbb50',
           borderWidth: 1,
           padding: 12,
+          cornerRadius: 12,
           callbacks: {
             label(context) {
               if (total === 0) return ' Belum ada data suara';
