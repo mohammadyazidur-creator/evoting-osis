@@ -240,12 +240,12 @@ export function confirmDialog({
   const overlay = document.createElement('div');
   overlay.className = 'modal-overlay';
   overlay.innerHTML = `
-    <div class="modal-content animate-in fade-in zoom-in duration-200">
-      <h3 class="text-xl font-extrabold text-white mb-2">${title}</h3>
-      <p class="text-sm text-gray-300 mb-6 leading-relaxed">${message}</p>
+    <div class="modal-content !bg-white !text-[#25351f] !border-[#e5ebde] shadow-2xl rounded-3xl p-6">
+      <h3 class="text-xl font-extrabold text-[#25351f] mb-2">${title}</h3>
+      <p class="text-sm text-[#788174] mb-6 leading-relaxed">${message}</p>
       <div class="flex items-center justify-end gap-3">
-        <button type="button" class="btn-cancel btn-secondary !py-2.5 !px-4 text-sm">${cancelText}</button>
-        <button type="button" class="btn-confirm ${confirmClass} !py-2.5 !px-5 text-sm">${confirmText}</button>
+        <button type="button" class="btn-cancel bg-[#f4f7f0] hover:bg-[#eaf2df] text-[#4c603c] border border-[#e1e9d8] !py-2.5 !px-4 text-sm font-bold rounded-xl cursor-pointer">${cancelText}</button>
+        <button type="button" class="btn-confirm ${confirmClass} !py-2.5 !px-5 text-sm font-bold rounded-xl cursor-pointer">${confirmText}</button>
       </div>
     </div>
   `;
