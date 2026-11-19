@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Persentase Suara — Panel Admin E-Voting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/app.css" />
+</head>
+
+<body
+  class="bg-[#f3f5f1] text-[#20271e] min-h-screen flex flex-col justify-between selection:bg-[#8dbb50] selection:text-[#203018]">
+
+  <div id="admin-navbar"></div>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-6">
+
+    <div>
+      <h2 class="text-xl sm:text-2xl font-black text-[#25351f] tracking-tight">
+        PERSENTASE PEROLEHAN SUARA
+      </h2>
+      <p class="text-xs text-[#788174] font-medium">Komposisi pembagian suara dalam bentuk diagram lingkaran (Donut Chart)</p>
+    </div>
+
+    <!-- Main Grid: Big Donut & Details -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-stretch">
+
+      <!-- Big Donut Chart Card (Left) -->
+      <div class="lg:col-span-6 bg-white border border-[#e4eadc] shadow-[0_10px_28px_rgba(39,57,28,0.06)] rounded-3xl p-6 flex flex-col items-center justify-center min-h-[420px] relative">
+        <h3 class="text-xs font-black uppercase tracking-wider text-[#64748b] mb-4 self-start">
+          Diagram Donut Suara
+        </h3>
+
+        <div class="relative w-full max-w-[320px] h-[320px] mx-auto flex items-center justify-center">
+          <canvas id="donut-chart"></canvas>
+          <!-- Center Text in Donut -->
+          <div class="absolute inset-0 flex flex-col items-center justify-center pointer-events-none">
+            <span class="text-xs font-bold text-[#788174]">Total Suara</span>
+            <span id="donut-center-total" class="text-3xl font-black text-[#25351f]">0</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Percentage Breakdown Cards (Right) -->
+      <div class="lg:col-span-6 flex flex-col justify-between gap-4" id="percentage-breakdown-container">
+        <!-- Rendered dynamically -->
+      </div>
+
+    </div>
+
+  </main>
+
+  <footer class="w-full py-4 px-4 sm:px-8 border-t border-[#e6ebe1] bg-white/80 text-[11px] text-[#879080] flex flex-col sm:flex-row items-center justify-between gap-2 text-center">
+    <div>SMK Mamba'ul Ihsan • Banyuurip, Ujungpangkah, Gresik • Berkarakter & Berprestasi</div>
+    <div>Panel Rekapitulasi Panitia</div>
+  </footer>
+
+  <script src="/assets/lib/chart.umd.min.js"></script>
+  <script type="module" src="/assets/js/pages/persentase.js?v=4"></script>
+</body>
+
+</html>

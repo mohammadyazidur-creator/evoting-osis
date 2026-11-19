@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>E-Voting OSIS — SMK Mamba'ul Ihsan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/app.css" />
+</head>
+
+<body
+  class="bg-[#f3f5f1] text-[#20271e] min-h-screen flex flex-col justify-between overflow-x-hidden selection:bg-[#8dbb50] selection:text-[#203018]">
+
+  <!-- Top Header Bar (Hanya tampil di Layar Awal Hero) -->
+  <header id="hero-header" class="w-full flex items-center justify-between px-4 sm:px-12 py-3.5 bg-white/90 border-b border-[#e8ede4] backdrop-blur-md sticky top-0 z-30 transition-all">
+    <div class="flex items-center gap-3 bg-white p-1.5 px-3.5 rounded-2xl border border-[#edf0e9] shadow-[0_4px_16px_rgba(36,55,26,0.06)]">
+      <img src="/assets/img/logo-smk.webp" alt="Logo SMK" class="w-8 h-8 sm:w-9 sm:h-9 object-contain" />
+      <div class="leading-tight text-left">
+        <div class="text-[8px] sm:text-[9px] font-black uppercase text-[#658d35] tracking-wider">E-VOTING RESMI</div>
+        <div class="text-xs sm:text-sm font-extrabold text-[#25351f]">SMK MAMBA'UL IHSAN</div>
+        <div class="text-[9px] sm:text-[10px] text-[#788174]">Banyuurip Ujungpangkah Gresik</div>
+      </div>
+    </div>
+    <div class="bg-[#f2f7e9] border border-[#dce9ca] text-[#658d35] text-xs font-bold px-3 py-1.5 rounded-full whitespace-nowrap">
+      Masa Bakti 2026/2027
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <main id="app-view" class="flex-1 flex flex-col items-center justify-center p-4 relative">
+
+    <!-- SECTION 1: HERO SCREEN (Layar Awal) -->
+    <section id="section-hero" class="w-full max-w-lg mx-auto flex flex-col items-center text-center py-8 sm:py-14 space-y-6">
+      <!-- Rounded Emblem Badge -->
+      <div class="w-24 h-24 sm:w-28 sm:h-28 rounded-3xl bg-white border border-[#e4ebdc] shadow-[0_12px_28px_rgba(43,66,29,0.12)] flex items-center justify-center p-3">
+        <img src="/assets/img/logo-smk.webp" alt="Logo SMK Mamba'ul Ihsan" class="w-full h-full object-contain" />
+      </div>
+
+      <div class="space-y-2">
+        <h1 class="text-4xl sm:text-5xl font-black text-[#25351f] tracking-tight leading-none">
+          E-VOTING<br><span class="text-[#25351f]">OSIS</span>
+        </h1>
+        <p class="text-base sm:text-lg font-extrabold text-[#789d42]">
+          Pemilihan Ketua &amp; Wakil Ketua OSIS
+        </p>
+        <p class="text-xs sm:text-sm text-[#788174] leading-relaxed max-w-sm mx-auto">
+          SMK Mamba'ul Ihsan Banyuurip • Masa Bakti 2026/2027<br>
+          Gunakan hak suara Anda secara jujur, tertib, dan demokratis.
+        </p>
+      </div>
+
+      <div class="w-full pt-4 space-y-3 flex flex-col items-center">
+        <button id="btn-start-vote" type="button"
+          class="w-full max-w-xs py-4 px-6 rounded-2xl bg-gradient-to-r from-[#8dbb50] to-[#a9ce70] text-[#203018] font-black text-sm sm:text-base tracking-wider shadow-[0_8px_22px_rgba(115,157,62,0.25)] hover:shadow-[0_12px_28px_rgba(115,157,62,0.35)] transition-all flex items-center justify-center gap-3 cursor-pointer active:scale-95">
+          <span>MULAI PEMILIHAN</span>
+          <span class="text-lg">➔</span>
+        </button>
+
+        <a href="/login.html"
+          class="inline-block text-xs font-semibold text-[#788174] hover:text-[#496b2b] transition-colors py-2">
+          🔒 Masuk Panel Panitia
+        </a>
+      </div>
+    </section>
+
+    <!-- SECTION 2: CATALOG SCREEN (Katalog Paslon) -->
+    <section id="section-catalog" class="w-full max-w-6xl mx-auto hidden flex-col items-center py-4 space-y-6">
+      <!-- Header Katalog (Kembali + Judul) -->
+      <div class="w-full flex items-center justify-between px-2 sm:px-4 py-2 border-b border-[#e7ece2]">
+        <button id="btn-back-hero" type="button"
+          class="bg-[#f4f7f0] hover:bg-[#eaf2df] text-[#4c603c] border border-[#e1e9d8] py-2 px-4 rounded-full text-xs font-bold flex items-center gap-1.5 transition-all cursor-pointer">
+          <span>❮</span>
+          <span>Kembali</span>
+        </button>
+
+        <div class="text-center px-2">
+          <h2 class="text-base sm:text-2xl font-black text-[#263322] tracking-tight">DAFTAR KANDIDAT KETUA &amp; WAKIL KETUA OSIS</h2>
+          <p class="text-[10px] sm:text-xs text-[#8a9382] font-semibold">Pilihlah salah satu pasangan calon dengan menekan tombol PILIH di bawah ini</p>
+        </div>
+
+        <div class="w-20 sm:w-24 flex-shrink-0"></div>
+      </div>
+
+      <!-- Candidate Cards Row / Carousel -->
+      <div id="candidates-container"
+        class="w-full flex items-stretch justify-center gap-6 overflow-x-auto py-4 px-2 scroll-smooth">
+        <!-- Generated by JavaScript -->
+      </div>
+    </section>
+
+    <!-- SECTION 3: SUCCESS SCREEN -->
+    <section id="section-success"
+      class="w-full max-w-md mx-auto hidden flex-col items-center text-center py-10 space-y-6 bg-white border border-[#e5ebde] rounded-3xl p-8 shadow-[0_10px_28px_rgba(39,57,28,0.10)]">
+      <div
+        class="w-20 h-20 rounded-full bg-[#f2f7e9] border-2 border-[#8dbb50] flex items-center justify-center text-4xl text-[#658d35] shadow-md animate-bounce">
+        ✓
+      </div>
+
+      <div class="space-y-2">
+        <h2 class="text-2xl sm:text-3xl font-black text-[#263322]">SUARA ANDA TERSIMPAN!</h2>
+        <p class="text-xs sm:text-sm text-[#789f43] font-bold">Terima Kasih Atas Partisipasi Anda</p>
+        <p class="text-xs text-[#7d8875]">Suara Anda telah berhasil tersimpan secara rahasia dan aman ke dalam sistem.</p>
+      </div>
+
+      <div id="success-voter-info" class="w-full p-4 border border-[#e5ecdc] bg-[#f5f8f0] rounded-2xl text-left space-y-1">
+        <!-- Voter number & timestamp filled dynamically -->
+      </div>
+
+      <div class="w-full pt-4">
+        <div class="text-xs text-[#879080] mb-2 font-medium">Halaman otomatis kembali ke awal dalam:</div>
+        <div class="text-3xl font-black text-[#789f43]">
+          <span id="countdown-timer">5</span> detik
+        </div>
+      </div>
+    </section>
+
+    <!-- SECTION 4: VOTING CLOSED SCREEN -->
+    <section id="section-closed"
+      class="w-full max-w-md mx-auto hidden flex-col items-center text-center py-12 space-y-6 bg-white border border-[#e5ebde] rounded-3xl p-8 shadow-xl">
+      <div
+        class="w-20 h-20 rounded-full bg-red-100 border border-red-300 flex items-center justify-center text-4xl text-red-600">
+        🔒
+      </div>
+      <div class="space-y-2">
+        <h2 class="text-2xl sm:text-3xl font-black text-[#263322]">PEMILIHAN TELAH DITUTUP</h2>
+        <p class="text-sm text-[#7d8875]">
+          Waktu pemilihan telah berakhir atau panitia sedang melakukan rekapitulasi.
+        </p>
+      </div>
+      <div class="pt-4 flex flex-col gap-3 w-full">
+        <button id="btn-check-again" type="button" class="w-full py-3.5 rounded-xl bg-[#f4f7f0] text-[#4c603c] border border-[#e1e9d8] font-bold text-sm">
+          Periksa Status Kembali
+        </button>
+      </div>
+    </section>
+
+    <!-- SECTION 5: ERROR SCREEN -->
+    <section id="section-error"
+      class="w-full max-w-md mx-auto hidden flex-col items-center text-center py-12 space-y-6 bg-white border border-[#e5ebde] rounded-3xl p-8 shadow-xl">
+      <div
+        class="w-20 h-20 rounded-full bg-red-100 border border-red-300 flex items-center justify-center text-4xl text-red-600">
+        ⚠️
+      </div>
+      <div class="space-y-2">
+        <h2 class="text-xl sm:text-2xl font-black text-[#263322]">Gagal Memuat Data</h2>
+        <p id="error-message-text" class="text-sm text-red-600">
+          Tidak dapat terhubung ke server. Periksa koneksi jaringan Anda.
+        </p>
+      </div>
+      <button id="btn-retry-load" type="button" class="w-full py-3.5 rounded-xl bg-gradient-to-r from-[#8dbb50] to-[#a9ce70] text-[#203018] font-black text-sm">
+        Coba Lagi
+      </button>
+    </section>
+
+  </main>
+
+  <!-- CONFIRMATION MODAL -->
+  <div id="modal-confirm-vote" class="modal-overlay hidden">
+    <div class="modal-content text-center !bg-white !text-[#273321] !border-[#e5ebde] shadow-2xl rounded-3xl">
+      <div
+        class="w-16 h-16 rounded-full bg-[#f2f7e9] border border-[#dce9ca] text-[#658d35] flex items-center justify-center text-3xl mx-auto mb-4">
+        🛡️
+      </div>
+
+      <h3 class="text-2xl font-black text-[#273321] mb-2">APAKAH ANDA YAKIN?</h3>
+      <p class="text-xs text-[#7d8875] mb-4 font-medium">Anda akan memilih pasangan calon:</p>
+
+      <div class="p-4 border border-[#e5ecdc] bg-[#f5f8f0] rounded-2xl mb-6 text-center space-y-1">
+        <div id="modal-paslon-number" class="text-lg font-black text-[#789f43]">NOMOR URUT 01</div>
+        <div id="modal-paslon-names" class="text-base font-extrabold text-[#273321]">Sabrina & Meggya</div>
+        <div id="modal-paslon-classes" class="text-xs font-semibold text-[#85907c]">XI IPS 1 & XI IPA 4</div>
+      </div>
+
+      <p class="text-[11px] text-[#8c713b] mb-6 font-semibold flex items-center justify-center gap-1">
+        <span>⚠️</span> Suara yang telah disimpan tidak dapat diubah kembali.
+      </p>
+
+      <div class="flex items-center gap-3">
+        <button id="btn-modal-cancel" type="button" class="btn-secondary !bg-[#f4f7f0] !text-[#4c603c] !border-[#e1e9d8] hover:!bg-[#eaf2df] flex-1 py-3 font-bold rounded-xl cursor-pointer">
+          BATAL
+        </button>
+        <button id="btn-modal-confirm" type="button" class="flex-1 py-3 text-base rounded-xl bg-gradient-to-r from-[#8dbb50] to-[#a9ce70] text-[#203018] font-black shadow-md cursor-pointer hover:opacity-95 transition-all">
+          YA, SAYA YAKIN
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w-full py-4 px-4 sm:px-8 border-t border-[#e6ebe1] bg-white/80 text-[11px] text-[#879080] flex flex-col sm:flex-row items-center justify-between gap-2 text-center">
+    <div>Banyuurip, Ujungpangkah, Gresik &nbsp;•&nbsp; Berkarakter &amp; Berprestasi</div>
+    <div>Sistem Pemilihan LUBER &amp; JURDIL</div>
+  </footer>
+
+  <!-- Local Confetti Script -->
+  <script src="/assets/lib/confetti.browser.min.js"></script>
+  <!-- Page Logic (ES Module) -->
+  <script type="module" src="/assets/js/pages/index.js?v=2"></script>
+</body>
+
+</html>

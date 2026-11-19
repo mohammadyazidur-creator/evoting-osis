@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Kelola Paslon — Panel Admin E-Voting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/app.css" />
+</head>
+
+<body
+  class="bg-[#f3f5f1] text-[#20271e] min-h-screen flex flex-col justify-between selection:bg-[#8dbb50] selection:text-[#203018]">
+
+  <div id="admin-navbar"></div>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-6">
+
+    <div>
+      <h2 class="text-xl sm:text-2xl font-black text-[#25351f] tracking-tight">
+        KELOLA DATA PASANGAN CALON (PASLON)
+      </h2>
+      <p class="text-xs text-[#788174] font-medium">Edit informasi calon ketua, wakil, visi-misi, serta foto kandidat</p>
+    </div>
+
+    <!-- Candidate List -->
+    <div id="paslon-cards-list" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <!-- Filled dynamically -->
+    </div>
+
+  </main>
+
+  <!-- EDIT MODAL -->
+  <div id="modal-edit-paslon" class="modal-overlay hidden">
+    <div class="modal-content !bg-white !text-[#20271e] !border-[#e4eadc] max-w-xl max-h-[90vh] overflow-y-auto rounded-3xl p-6 shadow-2xl">
+      <div class="flex items-center justify-between pb-3 border-b border-[#edf0e9] mb-4">
+        <h3 id="modal-edit-title" class="text-lg font-black text-[#25351f]">EDIT PASLON 01</h3>
+        <button id="btn-close-edit-modal" type="button"
+          class="text-[#788174] hover:text-[#25351f] text-lg font-bold cursor-pointer">✕</button>
+      </div>
+
+      <form id="form-edit-paslon" class="space-y-4">
+        <input id="edit-candidate-id" type="hidden" />
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-[#64748b] mb-1">Nama Calon Ketua</label>
+            <input id="edit-chairman-name" type="text" required
+              class="w-full bg-[#f8faf6] border border-[#dce9ca] rounded-xl px-3.5 py-2.5 text-sm text-[#25351f] focus:outline-none focus:border-[#8dbb50]" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-[#64748b] mb-1">Kelas Calon Ketua</label>
+            <input id="edit-chairman-class" type="text" required
+              class="w-full bg-[#f8faf6] border border-[#dce9ca] rounded-xl px-3.5 py-2.5 text-sm text-[#25351f] focus:outline-none focus:border-[#8dbb50]" />
+          </div>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-[#64748b] mb-1">Nama Calon Wakil</label>
+            <input id="edit-vice-name" type="text" required
+              class="w-full bg-[#f8faf6] border border-[#dce9ca] rounded-xl px-3.5 py-2.5 text-sm text-[#25351f] focus:outline-none focus:border-[#8dbb50]" />
+          </div>
+          <div>
+            <label class="block text-xs font-bold uppercase tracking-wider text-[#64748b] mb-1">Kelas Calon Wakil</label>
+            <input id="edit-vice-class" type="text" required
+              class="w-full bg-[#f8faf6] border border-[#dce9ca] rounded-xl px-3.5 py-2.5 text-sm text-[#25351f] focus:outline-none focus:border-[#8dbb50]" />
+          </div>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-[#64748b] mb-1">Visi Paslon</label>
+          <textarea id="edit-vision" required rows="2"
+            class="w-full bg-[#f8faf6] border border-[#dce9ca] rounded-xl px-3.5 py-2.5 text-sm text-[#25351f] focus:outline-none focus:border-[#8dbb50]"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-[#64748b] mb-1">Misi Paslon</label>
+          <textarea id="edit-mission" required rows="4"
+            class="w-full bg-[#f8faf6] border border-[#dce9ca] rounded-xl px-3.5 py-2.5 text-sm text-[#25351f] focus:outline-none focus:border-[#8dbb50]"></textarea>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold uppercase tracking-wider text-[#64748b] mb-1">Ganti Foto Kandidat</label>
+          <input id="edit-photo" type="file" accept="image/jpeg,image/png,image/webp"
+            class="w-full text-xs text-[#788174] file:mr-3 file:py-2 file:px-4 file:rounded-xl file:border file:border-[#e1e9d8] file:bg-[#f4f7f0] file:text-[#4c603c] file:font-bold hover:file:bg-[#eaf2df] cursor-pointer" />
+          <p class="text-[11px] text-[#788174] mt-1">Format: JPG, PNG, atau WEBP. Maksimal 2MB.</p>
+        </div>
+
+        <div class="flex items-center justify-end gap-3 pt-4 border-t border-[#edf0e9]">
+          <button id="btn-cancel-edit" type="button" class="py-2.5 px-4 text-xs rounded-xl bg-[#f4f7f0] border border-[#e1e9d8] text-[#4c603c] font-bold cursor-pointer">
+            Batal
+          </button>
+          <button id="btn-submit-edit" type="submit" class="py-2.5 px-5 text-xs font-black rounded-xl bg-gradient-to-r from-[#8dbb50] to-[#a9ce70] hover:from-[#7ea844] hover:to-[#99bd61] text-[#203018] shadow-sm cursor-pointer">
+            Simpan Perubahan
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="w-full py-4 px-4 sm:px-8 border-t border-[#e6ebe1] bg-white/80 text-[11px] text-[#879080] flex flex-col sm:flex-row items-center justify-between gap-2 text-center">
+    <div>SMK Mamba'ul Ihsan • Banyuurip, Ujungpangkah, Gresik • Berkarakter & Berprestasi</div>
+    <div>Panel Rekapitulasi Panitia</div>
+  </footer>
+
+  <script type="module" src="/assets/js/pages/paslon.js?v=4"></script>
+</body>
+
+</html>

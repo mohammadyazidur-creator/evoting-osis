@@ -1,0 +1,3 @@
+@echo off
+echo Watching Tailwind CSS changes...
+tailwindcss.exe -i src/input.css -o assets/css/app.css --watch

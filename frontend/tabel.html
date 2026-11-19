@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tabel Rekapitulasi — Panel Admin E-Voting</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/app.css" />
+</head>
+
+<body
+  class="bg-[#f3f5f1] text-[#20271e] min-h-screen flex flex-col justify-between selection:bg-[#8dbb50] selection:text-[#203018]">
+
+  <div id="admin-navbar"></div>
+
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 space-y-6">
+
+    <div class="flex flex-wrap items-center justify-between gap-4">
+      <div>
+        <h2 class="text-xl sm:text-2xl font-black text-[#25351f] tracking-tight">
+          TABEL REKAPITULASI SUARA
+        </h2>
+        <p class="text-xs text-[#788174] font-medium">Ringkasan perolehan suara per pasangan calon</p>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <button id="btn-export-excel" type="button"
+          class="py-2.5 px-4 rounded-xl bg-white border border-[#e1e9d8] text-[#4c603c] hover:bg-[#eaf2df] font-bold text-xs shadow-sm flex items-center gap-1.5 transition-all cursor-pointer">
+          <span>📥</span>
+          <span>Unduh Excel (.XLSX)</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Table Card -->
+    <div class="bg-white border border-[#e4eadc] shadow-[0_8px_24px_rgba(39,57,28,0.06)] rounded-3xl overflow-hidden">
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse">
+          <thead>
+            <tr class="bg-[#f8faf6] border-b border-[#e4eadc] text-xs font-bold text-[#64748b] uppercase tracking-wider">
+              <th class="py-4 px-4 w-16 text-center">NO</th>
+              <th class="py-4 px-4 w-20 text-center">FOTO</th>
+              <th class="py-4 px-4">PASANGAN CALON</th>
+              <th class="py-4 px-4">CALON KETUA & KELAS</th>
+              <th class="py-4 px-4">CALON WAKIL & KELAS</th>
+              <th class="py-4 px-4 text-right">PEROLEHAN</th>
+              <th class="py-4 px-4 w-48">PERSENTASE</th>
+              <th class="py-4 px-4 text-center w-28">STATUS</th>
+            </tr>
+          </thead>
+          <tbody id="table-candidates-body" class="divide-y divide-[#f0f4ec] text-sm text-[#25351f]">
+            <!-- Filled dynamically -->
+          </tbody>
+          <tfoot class="bg-[#f8faf6] font-bold border-t border-[#e4eadc] text-sm">
+            <tr>
+              <td colspan="5" class="py-4 px-4 text-right text-[#788174] uppercase tracking-wider text-xs">
+                TOTAL SELURUH SUARA MASUK:
+              </td>
+              <td id="tfoot-total-votes" class="py-4 px-4 text-right text-lg font-black text-[#658d35]">
+                0
+              </td>
+              <td colspan="2" class="py-4 px-4 text-xs text-[#788174]">
+                100% Data Suara
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+  </main>
+
+  <footer class="w-full py-4 px-4 sm:px-8 border-t border-[#e6ebe1] bg-white/80 text-[11px] text-[#879080] flex flex-col sm:flex-row items-center justify-between gap-2 text-center">
+    <div>SMK Mamba'ul Ihsan • Banyuurip, Ujungpangkah, Gresik • Berkarakter & Berprestasi</div>
+    <div>Panel Rekapitulasi Panitia</div>
+  </footer>
+
+  <script src="/assets/lib/xlsx.full.min.js"></script>
+  <script type="module" src="/assets/js/pages/tabel.js?v=4"></script>
+</body>
+
+</html>

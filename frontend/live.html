@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Live Quick Count — E-Voting OSIS SMK Mamba'ul Ihsan</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/app.css" />
+</head>
+
+<body
+  class="bg-brand-950 text-white min-h-screen flex flex-col justify-between selection:bg-gold-500 selection:text-brand-950">
+
+  <!-- TOP HEADER -->
+  <header class="border-b border-brand-800 bg-brand-950/80 backdrop-blur sticky top-0 z-30">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 py-3 flex items-center justify-between">
+      <div class="flex items-center gap-3">
+        <img src="/assets/img/logo-smk.webp" alt="Logo SMK" class="w-10 h-10 object-contain drop-shadow" />
+        <div>
+          <h1
+            class="text-base sm:text-xl font-extrabold tracking-tight text-white leading-tight flex items-center gap-2">
+            LIVE QUICK COUNT <span class="text-gold-400">E-VOTING OSIS</span>
+          </h1>
+          <p class="text-xs text-emerald-400 font-semibold">SMK Mamba'ul Ihsan • Masa Bakti 2026/2027</p>
+        </div>
+      </div>
+
+      <!-- Live badge & stats -->
+      <div class="flex items-center gap-2 sm:gap-3">
+        <!-- Back to Booth Button (Disembunyikan saat layar penuh) -->
+        <a id="btn-back-to-booth" href="/"
+          class="btn-secondary !py-1.5 !px-2.5 text-xs flex items-center gap-1 text-gray-300 hover:text-white transition-all"
+          title="Kembali ke Bilik Suara">
+          <span>❮</span>
+          <span>Bilik Suara</span>
+        </a>
+
+        <!-- Connection Status Badge -->
+        <div id="live-indicator"
+          class="stat-pill border-emerald-500/40 bg-emerald-950/40 text-emerald-400 text-xs font-bold">
+          <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
+          <span id="live-indicator-text">LIVE</span>
+        </div>
+
+        <!-- Fullscreen Button -->
+        <button id="btn-fullscreen" type="button" class="btn-icon text-xs hidden sm:flex" title="Layar Penuh">
+          ⛶
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN DASHBOARD CONTENT (Responsive layout: TV Landscape vs HP Portrait) -->
+  <main class="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 flex flex-col gap-6">
+
+    <!-- Top KPI Stats Row -->
+    <div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+      <div class="card p-4 flex items-center gap-4">
+        <div
+          class="w-12 h-12 rounded-2xl bg-gold-500/20 text-gold-400 flex items-center justify-center text-2xl font-bold">
+          📥
+        </div>
+        <div>
+          <div class="text-xs text-gray-400 font-semibold uppercase">Total Suara Masuk</div>
+          <div id="stat-total-votes" class="text-2xl sm:text-3xl font-black text-white">0</div>
+        </div>
+      </div>
+
+      <div class="card p-4 flex items-center gap-4">
+        <div
+          class="w-12 h-12 rounded-2xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center text-2xl font-bold">
+          👥
+        </div>
+        <div>
+          <div class="text-xs text-gray-400 font-semibold uppercase">Kandidat Paslon</div>
+          <div id="stat-total-candidates" class="text-2xl sm:text-3xl font-black text-white">3</div>
+        </div>
+      </div>
+
+      <div class="card p-4 flex items-center gap-4">
+        <div
+          class="w-12 h-12 rounded-2xl bg-blue-500/20 text-blue-400 flex items-center justify-center text-2xl font-bold">
+          🏆
+        </div>
+        <div>
+          <div class="text-xs text-gray-400 font-semibold uppercase">Posisi Unggul</div>
+          <div id="stat-leader-paslon" class="text-base sm:text-xl font-extrabold text-gold-400 truncate max-w-[130px]">
+            -
+          </div>
+        </div>
+      </div>
+
+      <div class="card p-4 flex items-center gap-4">
+        <div
+          class="w-12 h-12 rounded-2xl bg-purple-500/20 text-purple-400 flex items-center justify-center text-2xl font-bold">
+          ⚡
+        </div>
+        <div>
+          <div class="text-xs text-gray-400 font-semibold uppercase">Status Pemilihan</div>
+          <div id="stat-status-text" class="text-base sm:text-lg font-extrabold text-emerald-400">
+            Sedang Berjalan
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Main Grid: Cards & Bar Chart -->
+    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start flex-1">
+
+      <!-- Candidate Cards (Left in TV / Below Chart in Mobile) -->
+      <div id="live-cards-container" class="order-2 lg:order-1 lg:col-span-7 grid grid-cols-1 sm:grid-cols-3 gap-4">
+        <!-- Rendered by live.js -->
+      </div>
+
+      <!-- Real-Time Bar Chart (Right in TV / Top in Mobile) -->
+      <div class="order-1 lg:order-2 lg:col-span-5 card p-5 flex flex-col justify-between h-[360px] lg:h-[480px]">
+        <div class="flex items-center justify-between mb-3">
+          <div>
+            <h3 class="text-base font-extrabold text-white">GRAFIK PEROLEHAN SUARA</h3>
+            <p class="text-xs text-gray-400">Pembaruan real-time setiap suara masuk</p>
+          </div>
+          <span class="badge-paslon">DIAGRAM BATANG</span>
+        </div>
+
+        <div class="relative flex-1 w-full min-h-0">
+          <canvas id="live-bar-chart"></canvas>
+        </div>
+
+        <div class="text-[11px] text-gray-400 text-center mt-3 pt-2 border-t border-brand-800">
+          Terakhir diperbarui: <span id="last-updated-text" class="text-gray-300 font-semibold">-</span>
+        </div>
+      </div>
+
+    </div>
+
+  </main>
+
+  <!-- WINNER CELEBRATION OVERLAY (When status is finished) -->
+  <div id="winner-overlay" class="modal-overlay hidden">
+    <div class="modal-content max-w-lg text-center p-8 border-gold-500/60 bg-brand-950/95 shadow-glow">
+      <div class="text-5xl animate-bounce mb-3">👑</div>
+      <h2 class="text-2xl sm:text-3xl font-black text-gold-400 mb-1">PEMENANG TELAH DIUMUMKAN!</h2>
+      <p class="text-xs text-gray-300 mb-6">Hasil resmi Pemilihan Ketua & Wakil Ketua OSIS SMK Mamba'ul Ihsan</p>
+
+      <div id="winner-details" class="card p-6 border-gold-500/40 bg-gold-950/30 text-center mb-6 space-y-3">
+        <!-- Filled dynamically -->
+      </div>
+
+      <button id="btn-close-overlay" type="button" class="btn-primary w-full">
+        Lihat Rekapitulasi Lengkap
+      </button>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="w-full py-3 text-center border-t border-brand-800/40 bg-brand-950/90 text-xs text-gray-400">
+    <p>SMK Mamba'ul Ihsan • Banyuurip, Ujungpangkah, Gresik • Berkarakter & Berprestasi</p>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="/assets/lib/chart.umd.min.js"></script>
+  <script src="/assets/lib/confetti.browser.min.js"></script>
+  <script type="module" src="/assets/js/pages/live.js"></script>
+</body>
+
+</html>

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Login Panitia — E-Voting OSIS</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet">
+  <link rel="stylesheet" href="/assets/css/app.css" />
+</head>
+
+<body
+  class="bg-[#f3f5f1] text-[#20271e] min-h-screen flex items-center justify-center p-4 selection:bg-[#8dbb50] selection:text-[#203018]">
+
+  <div class="w-full max-w-md p-8 sm:p-10 bg-white border border-[#e4eadc] shadow-[0_12px_32px_rgba(36,55,26,0.08)] rounded-3xl relative overflow-hidden text-center">
+    <div class="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-[#8dbb50] via-[#a9ce70] to-[#8dbb50]"></div>
+
+    <div class="w-20 h-20 rounded-3xl bg-white border border-[#e4ebdc] shadow-[0_8px_20px_rgba(43,66,29,0.10)] flex items-center justify-center p-2.5 mx-auto mb-4 mt-2">
+      <img src="/assets/img/logo-smk.webp" alt="Logo SMK" class="w-full h-full object-contain" />
+    </div>
+
+    <h1 class="text-2xl sm:text-3xl font-black text-[#25351f] tracking-tight">
+      LOGIN <span class="text-[#658d35]">PANITIA</span>
+    </h1>
+    <p class="text-xs text-[#788174] mt-1 font-semibold">E-Voting OSIS SMK Mamba'ul Ihsan</p>
+
+    <!-- Error Alert Box -->
+    <div id="login-error-alert"
+      class="hidden my-4 p-3.5 rounded-xl bg-red-50 border border-red-200 text-red-600 text-xs font-bold flex items-center gap-2 text-left">
+      <span>⚠️</span>
+      <span id="login-error-msg">Email atau password salah.</span>
+    </div>
+
+    <!-- Login Form -->
+    <form id="form-login" class="space-y-4 text-left mt-6">
+      <div>
+        <label for="input-email" class="block text-xs font-bold uppercase tracking-wider text-[#64748b] mb-1.5">Email Panitia</label>
+        <input id="input-email" type="email" required placeholder="admin@smkmambaulihsan.sch.id"
+          class="w-full bg-[#f8faf6] border border-[#dce9ca] rounded-xl px-4 py-3 text-sm text-[#25351f] placeholder-gray-400 focus:outline-none focus:border-[#8dbb50] focus:ring-1 focus:ring-[#8dbb50] transition-all font-medium"
+          autocomplete="username" />
+      </div>
+
+      <div>
+        <label for="input-password" class="block text-xs font-bold uppercase tracking-wider text-[#64748b] mb-1.5">Password</label>
+        <input id="input-password" type="password" required placeholder="••••••••"
+          class="w-full bg-[#f8faf6] border border-[#dce9ca] rounded-xl px-4 py-3 text-sm text-[#25351f] placeholder-gray-400 focus:outline-none focus:border-[#8dbb50] focus:ring-1 focus:ring-[#8dbb50] transition-all font-medium"
+          autocomplete="current-password" />
+      </div>
+
+      <button id="btn-submit-login" type="submit"
+        class="w-full py-4 rounded-2xl bg-gradient-to-r from-[#8dbb50] to-[#a9ce70] hover:from-[#7ea844] hover:to-[#99bd61] text-[#203018] font-black text-sm tracking-wider shadow-[0_8px_22px_rgba(115,157,62,0.25)] transition-all active:scale-95 cursor-pointer mt-2">
+        Masuk ke Panel
+      </button>
+    </form>
+
+    <div class="mt-6 pt-5 border-t border-[#edf0e9]">
+      <a href="/" class="text-xs text-[#788174] hover:text-[#496b2b] font-bold transition-colors">
+        ❮ Kembali ke Bilik Suara
+      </a>
+    </div>
+  </div>
+
+  <script type="module" src="/assets/js/pages/login.js?v=3"></script>
+</body>
+
+</html>
