@@ -33,7 +33,7 @@
 
   /* Cards */
   .card {
-    @apply bg-white rounded-3xl border border-[#e4eadc] shadow-[0_8px_24px_rgba(36,55,26,0.06)];
+    @apply bg-white rounded-3xl border border-[#e4eadc] shadow-[0_8px_24px_rgba(36, 55, 26, 0.06)];
   }
 
   .card-hover {
